@@ -32,6 +32,9 @@
 #include "motoman_driver/joint_trajectory_streamer.h"
 #include "industrial_utils/param_utils.h"
 
+// Parallel-Linkage
+#include "motoman_driver/parallel_linkage/pl_joint_trajectory_streamer.h"
+
 using motoman::joint_trajectory_streamer::MotomanJointTrajectoryStreamer;
 
 int main(int argc, char** argv)
@@ -41,11 +44,43 @@ int main(int argc, char** argv)
   // initialize node
   ros::init(argc, argv, "motion_interface");
 
-  // launch the FS100 JointTrajectoryStreamer connection/handlers
-  MotomanJointTrajectoryStreamer motionInterface;
+  // Parallel-Linkage
+  // -------------------------------
+  // If the Robot is configured with a coupled-linkage between Joint 2 and Joint 3
+  // also known as a Parallel-Linkage.
+  // A manipulation is required of the received (Motor->ROS) and sent (ROS->Motor) Joint-Info
+  // This is governed by the j23_linkage parameter from the parameter-server
 
-  motionInterface.init("", FS100_motion_port, false);
-  motionInterface.run();
+  // Local variable for active Parallel-Linkage
+  bool j23_linkage = false; // Initialize as false;
+
+  // Get Parallel-Linkage value from Parameter-Server
+  // (assign "false" as default value, if parameter doesn't exist)
+  ros::param::param("J23_linkage", j23_linkage, false);
+
+  // Check for enabled Parallel-Linkage
+  if (j23_linkage)
+  {
+    // Report to Terminal
+    ROS_INFO("JointStreamingNode: Intializing with Parallel-Linkage");
+
+    // Launch the Parallel-Linkage JointTrajectoryStreamer connection/handlers
+    // (Enabling Parallel-Linkage)
+    motoman::ParallelLinkage::JointTrajectoryStreamer motionInterface;
+
+    motionInterface.init("", FS100_motion_port, false);
+    motionInterface.run();
+  }
+
+  // No enabled Parallel-Linkage parameter
+  else
+  {
+    // launch the FS100 JointTrajectoryStreamer connection/handlers
+    MotomanJointTrajectoryStreamer motionInterface;
+
+    motionInterface.init("", FS100_motion_port, false);
+    motionInterface.run();
+  }
 
   return 0;
 }
