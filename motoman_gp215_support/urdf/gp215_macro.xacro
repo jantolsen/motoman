@@ -1,0 +1,226 @@
+<?xml version="1.0" ?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="motoman_gp215" params="prefix">
+    <!-- <xacro:include filename="$(find motoman_resources)/urdf/common_materials.xacro"/> -->
+
+    <!-- Properties -->
+    <material name="${prefix}yaskawa_blue">
+      <color rgba="0.12941 0.14902 0.74902 1" />
+    </material>
+
+    <material name="${prefix}collision_yellow">
+      <color rgba="1.0 1.0 0.0 1" />
+    </material>
+
+    <material name="${prefix}component_grey">
+      <color rgba="0.2 0.2 0.2 1" />
+    </material>
+
+    <!-- Link List -->
+    <link name="${prefix}base_link">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_base_link.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+            <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_base_link_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_1">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_1_s.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_1_s_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_2">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_2_l.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_2_l_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_3">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_3_u.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_3_u_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_4">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_4_r.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_4_r_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_5">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_5_b.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_5_b_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}link_6">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_link_6_t.stl"/>
+        </geometry>
+        <material name="${prefix}yaskawa_blue"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_link_6_t_col.stl"/>
+        </geometry>
+        <material name="${prefix}collision_yellow"/>
+      </collision>
+    </link>
+
+    <!-- Cylinder Box -->
+    <link name="${prefix}cylinderbox">
+      <visual>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/visual/gp215_bal_col.stl"/>
+        </geometry>
+        <material name="${prefix}component_grey"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://motoman_gp215_support/meshes/collision/gp215_bal_col.stl"/>
+        </geometry>
+        <material name="${prefix}Collision_yellow"/>
+      </collision>
+    </link>
+
+    <link name="${prefix}tool0"/>
+    <!-- End of Link List -->
+
+    <!-- Joint List -->
+
+    <!-- S-Axis -->
+    <joint name="${prefix}joint_1" type="revolute">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link_1"/>
+      <origin xyz="0 0 0.650" rpy="0 0 0" />
+      <axis xyz="0 0 1" />
+      <limit lower="-3.12" upper="3.12" effort="926.10" velocity="1.7453"/>
+      <!-- <limit lower="${radians(-179)}" upper="${radians(179)}" effort="926.10" velocity="1.7453"/> -->
+    </joint>
+
+    <!-- L-Axis -->
+    <joint name="${prefix}joint_2" type="revolute">
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}link_2"/>
+      <origin xyz="0.285 0 0" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <limit lower="-1.02" upper="1.30" effort="1029.00" velocity="1.5708"/>
+      <!-- <limit lower="${radians(-59)}" upper="${radians(75)}" effort="1029.00" velocity="1.5708"/> -->
+    </joint>
+
+    <!-- U-Axis -->
+    <joint name="${prefix}joint_3" type="revolute">
+      <parent link="${prefix}link_2"/>
+      <child link="${prefix}link_3"/>
+      <origin xyz="0 0 1.150" rpy="0 0 0" />
+      <axis xyz="0 -1 0" />
+      <limit lower="-1.34" upper="3.42" effort="551.25" velocity="1.6930"/>
+      <!-- <limit lower="${radians(-76.8)}" upper="${radians(196)}" effort="551.25" velocity="1.6930"/> -->
+    </joint>
+
+    <!-- R-Axis -->
+    <joint name="${prefix}joint_4" type="revolute">
+      <parent link="${prefix}link_3"/>
+      <child link="${prefix}link_4"/>
+      <origin xyz="1.490 0 0.250" rpy="0 0 0" />
+      <axis xyz="-1 0 0" />
+      <limit lower="-6.28" upper="6.28" effort="89.96" velocity="2.0944"/>
+      <!-- <limit lower="${radians(-359)}" upper="${radians(359)}" effort="89.96" velocity="2.0944"/> -->
+    </joint>
+
+    <!-- B-Axis -->
+    <joint name="${prefix}joint_5" type="revolute">
+      <parent link="${prefix}link_4"/>
+      <child link="${prefix}link_5"/>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <axis xyz="0 -1 0" />
+      <!-- <limit lower="${radians(-120.32)}" upper="${radians(120.32)}" effort="67.03" velocity="2.0944"/> -->
+      <limit lower="-2.16" upper="2.16" effort="67.03" velocity="2.0944"/>
+      <!-- <limit lower="${radians(-124)}" upper="${radians(124)}" effort="67.03" velocity="2.0944"/> -->
+    </joint>
+    
+    <!-- T-Axis -->
+    <joint name="${prefix}joint_6" type="revolute">
+      <parent link="${prefix}link_5"/>
+      <child link="${prefix}link_6"/>
+      <origin xyz=".219 0 0" rpy="0 0 0" />
+      <axis xyz="-1 0 0" />
+      <limit lower="-6.28" upper="6.28" effort="33.30" velocity="3.316"/>
+      <!-- <limit lower="${radians(-359)}" upper="${radians(359)}" effort="33.30" velocity="3.316"/> -->
+    </joint>
+
+    <!-- EOAT -->
+    <joint name="${prefix}joint_6-tool0" type="fixed">
+      <origin xyz="0.034 0.000 0.000" rpy="0 ${radians(90)} 0" />
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}tool0"/>
+    </joint>
+
+    <!-- Cylinder Box -->
+    <joint name="${prefix}cylinderbox" type="revolute">
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}cylinderbox"/>
+      <origin xyz="-0.34191 -0.15625 -0.015" rpy="0 0 0" />
+      <axis xyz="0 1 0" />
+      <mimic joint="${prefix}joint_2" multiplier="-0.222"/>
+      <limit lower="-3.14" upper="3.14" effort="1029.00" velocity="1.5708"/>
+      <!-- <limit lower="${radians(-180)}" upper="${radians(180)}" effort="1029.00" velocity="1.5708"/> -->
+    </joint>
+    <!-- End of joint List -->
+  </xacro:macro>
+</robot>
