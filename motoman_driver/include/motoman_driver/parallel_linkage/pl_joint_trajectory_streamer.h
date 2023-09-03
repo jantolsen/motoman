@@ -41,7 +41,7 @@ namespace ParallelLinkage
 class JointTrajectoryStreamer : public motoman::joint_trajectory_streamer::MotomanJointTrajectoryStreamer
 {
   
-  bool J23_linkage_;  // Linkage Between joint 2 and joint 3
+  bool J23_coupled_;  // Linkage Between joint 2 and joint 3
   using motoman::joint_trajectory_streamer::MotomanJointTrajectoryStreamer::init;
 
   // Public Class members
