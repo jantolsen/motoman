@@ -54,10 +54,10 @@ int main(int argc, char** argv)
     // If the Robot is configured with a coupled-linkage between Joint 2 and Joint 3
     // also known as a Parallel-Linkage.
     // A manipulation is required of the received (Motor->ROS) and sent (ROS->Motor) Joint-Info
-    // This is governed by the j23_linkage parameter from the parameter-server
+    // This is governed by the J23_coupled parameter from the parameter-server
     
     // Local variable for active Parallel-Linkage
-    bool j23_linkage = false; // Initialize as false
+    bool J23_coupled = false; // Initialize as false
 
     // Declare Parallel-Linkage Joint-Handler(s)
     motoman::ParallelLinkage::JointRelayHandler jointHandler;                   // for joint-linkage correction
@@ -65,10 +65,10 @@ int main(int argc, char** argv)
 
     // Get Parallel-Linkage value from Parameter-Server
     // (assign "false" as default value, if parameter doesn't exist)
-    ros::param::param("J23_linkage", j23_linkage, false);
+    ros::param::param("J23_coupled", J23_coupled, false);
 
     // Check for enabled Parallel-Linkage
-    if (j23_linkage)
+    if (J23_coupled)
     {
       // Report to Terminal
       ROS_INFO("RobotStateNode: Intializing with Parallel-Linkage");

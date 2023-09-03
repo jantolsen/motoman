@@ -46,10 +46,10 @@ JointRelayHandler::~JointRelayHandler()
 bool JointRelayHandler::checkParalellLinkage()
 {
   // Check Parameter Server for enabled Parallel-Linkage
-  if (ros::param::has("J23_linkage"))
+  if (ros::param::has("J23_coupled"))
   {
     // Enable J23-Linkage parameter
-    ros::param::get("J23_linkage", this->J23_linkage_);
+    ros::param::get("J23_coupled", this->J23_coupled_);
 
     // Report to terminal
     ROS_INFO("Joint Relay Handler - Using Parallel-Linkage (J23-Linkage)");
@@ -59,10 +59,10 @@ bool JointRelayHandler::checkParalellLinkage()
   else
   {
     // Disable J23-Linkage parameter
-    J23_linkage_ = false;
+    J23_coupled_ = false;
   }
 
-  return J23_linkage_;
+  return J23_coupled_;
 }
 
 // Transform
@@ -77,8 +77,8 @@ bool JointRelayHandler::checkParalellLinkage()
     // Correct for Parallel-Linkage effects
     //   - use POSITIVE factor for motor->joint correction
     //   - use NEGATIVE factor for joint->motor correction
-    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? 1:0 );
-    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? -1:0 );
+    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? 1:0 );
+    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? -1:0 );
 
     return true;
   }
@@ -90,8 +90,8 @@ bool JointRelayHandler::checkParalellLinkage()
     /// Correct for Parallel-Linkage effects
     //   - use POSITIVE factor for motor->joint correction
     //   - use NEGATIVE factor for joint->motor correction
-    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? 1:0 );
-    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? -1:0 );
+    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? 1:0 );
+    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? -1:0 );
 
     return true;
   }
@@ -103,8 +103,8 @@ bool JointRelayHandler::checkParalellLinkage()
     // Correct for Parallel-Linkage effects
     //   - use POSITIVE factor for motor->joint correction
     //   - use NEGATIVE factor for joint->motor correction
-    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? 1:0 );
-    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_linkage_ ? -1:0 );
+    motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? 1:0 );
+    // motoman::ParallelLinkage::Utils::linkage_transform(pos_in, pos_out, J23_coupled_ ? -1:0 );
 
     return true;
   }

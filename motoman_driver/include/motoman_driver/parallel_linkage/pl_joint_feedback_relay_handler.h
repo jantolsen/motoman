@@ -40,7 +40,7 @@ namespace ParallelLinkage
  */
 class JointFeedbackRelayHandler : public industrial_robot_client::joint_feedback_relay_handler::JointFeedbackRelayHandler
 {
-    bool J23_linkage_;  // Linkage Between joint 2 and joint 3
+    bool J23_coupled_;  // Linkage Between joint 2 and joint 3
 
   // Public Class members
   // -------------------------------

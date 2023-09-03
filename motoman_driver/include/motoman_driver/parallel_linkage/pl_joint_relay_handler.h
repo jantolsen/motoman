@@ -41,7 +41,7 @@ namespace ParallelLinkage
 // class JointRelayHandler : public industrial_robot_client::joint_info_handler::JointInfoHandler
 class JointRelayHandler : public industrial_robot_client::joint_relay_handler::JointRelayHandler
 {
-    bool J23_linkage_;  // Linkage Between joint 2 and joint 3
+    bool J23_coupled_;  // Linkage Between joint 2 and joint 3
 
   // Public Class members
   // -------------------------------
